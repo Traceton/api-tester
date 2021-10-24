@@ -3,5 +3,11 @@
         "activityBar.background": "#053526",
         "titleBar.activeBackground": "#074A35",
         "titleBar.activeForeground": "#EFFEF9"
+    },
+    "emmet.excludeLanguages": [
+        "markdown"
+    ],
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
     }
 }
