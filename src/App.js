@@ -32,7 +32,7 @@ function App() {
           return response;
         });
       } else {
-        return alert("image size to large");
+        return alert("No image or image size to large");
       }
     } catch (error) {
       return console.log("Invetory item create new item api error");
