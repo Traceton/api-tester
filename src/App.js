@@ -5,6 +5,7 @@ import './App.css';
 function App() {
 
   const [year, setYear] = useState("");
+  const [picture, setPicture] = useState("");
 
   const createNew = async (e) => {
     e.preventDefault();
@@ -34,7 +35,7 @@ function App() {
       <form onSubmit={createNew} method="post">
         <label htmlFor="itemsInStock">itemsInStock</label>
         <input
-          className="bg-gray-350 rounded text-center p-1"
+          className=""
           type="text"
           name="itemsInStock"
           value={year}
@@ -42,6 +43,15 @@ function App() {
             setYear(event.target.value)
           }}
         ></input>
+        <label htmlFor="itemPicture">Item Pictures</label>
+        <input
+          type="file"
+          // accept=".jpg"
+          onChange={(Event) => {
+            const file = Event.target.files[0];
+            setPicture(file);
+          }}
+        />
         <button type="submit">
           submit
         </button>
