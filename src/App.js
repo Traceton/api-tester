@@ -15,17 +15,18 @@ function App() {
     e.preventDefault();
 
     const newItem = new FormData();
+    newItem.append("vehicleImage", picture);
     newItem.append("year", year);
     newItem.append("make", make);
     newItem.append("model", model);
     newItem.append("price", price);
     newItem.append("sellerId", sellerId);
-    newItem.append("vehicleImage", picture);
+
 
     try {
       if (picture && picture.size < 10000000) {
         await Axios.post(
-          `http://localhost:3001//inventoryItems/createNew`,
+          `http://localhost:3001/vehicles`,
           newItem
         ).then(async (response) => {
           return response;
@@ -41,8 +42,8 @@ function App() {
 
   return (
     <div className="App">
-      <form onSubmit={createNew} method="post">
-        <label htmlFor="year">itemsInStock</label>
+      <form onSubmit={createNew} method="POST" >
+        <label htmlFor="year">year</label>
         <input
           className=""
           type="text"
@@ -52,7 +53,7 @@ function App() {
             setYear(event.target.value)
           }}
         ></input>
-        <label htmlFor="make">itemsInStock</label>
+        <label htmlFor="make">make</label>
         <input
           className=""
           type="text"
@@ -62,7 +63,7 @@ function App() {
             setMake(event.target.value)
           }}
         ></input>
-        <label htmlFor="model">itemsInStock</label>
+        <label htmlFor="model">model</label>
         <input
           className=""
           type="text"
@@ -72,7 +73,7 @@ function App() {
             setModel(event.target.value)
           }}
         ></input>
-        <label htmlFor="price">itemsInStock</label>
+        <label htmlFor="price">price</label>
         <input
           className=""
           type="text"
@@ -82,7 +83,7 @@ function App() {
             setPrice(event.target.value)
           }}
         ></input>
-        <label htmlFor="sellerId">itemsInStock</label>
+        <label htmlFor="sellerId">sellerId</label>
         <input
           className=""
           type="text"
