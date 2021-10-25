@@ -3,39 +3,76 @@ import Axios from "axios";
 import './App.css';
 
 function App() {
-
-  const [year, setYear] = useState("");
-  const [make, setMake] = useState("");
-  const [model, setModel] = useState("");
-  const [price, setPrice] = useState("");
-  const [sellerId, setSellerId] = useState("");
   const [picture, setPicture] = useState("");
+  const [title, setTitle] = useState("");
+
+
+  // create user
+  // export const createUser = async (userInfo, profilePic) => {
+  //   try {
+  //     const newUser = await new FormData();
+  //     newUser.append("username", userInfo.username.toLowerCase().trim());
+  //     newUser.append("password", userInfo.password.trim());
+  //     newUser.append("firstName", userInfo.firstName.toLowerCase().trim());
+  //     newUser.append("lastName", userInfo.lastName.toLowerCase().trim());
+  //     newUser.append("email", userInfo.email.toLowerCase().trim());
+  //     newUser.append("phone", userInfo.phone);
+  //     newUser.append("userId", Date.now());
+  //     newUser.append("userBio", userInfo.userBio.toLowerCase().trim());
+  //     newUser.append(
+  //       "streetAddress",
+  //       userInfo.streetAddress.toLowerCase().trim()
+  //     );
+  //     newUser.append("city", userInfo.city.toLowerCase().trim());
+  //     newUser.append("state", userInfo.state.toLowerCase().trim());
+  //     newUser.append("zipCode", userInfo.zipCode.toLowerCase().trim());
+  //     newUser.append("profilePic", profilePic);
+  //     let final;
+  //     await Axios.post(`${API}/users`, newUser).then(async (response) => {
+  //       console.log(response);
+  //       final = await response.data;
+  //     });
+  //     await saveUserToSessionStorage(final);
+  //     return final;
+  //   } catch (error) {
+  //     return console.log("UserApi create user error");
+  //   }
+  // };
 
   const createNew = async (e) => {
     e.preventDefault();
 
     const newItem = new FormData();
-    newItem.append("vehicleImage", picture);
-    newItem.append("year", year);
-    newItem.append("make", make);
-    newItem.append("model", model);
-    newItem.append("price", price);
-    newItem.append("sellerId", sellerId);
+    // newItem.append("vehicleImage", picture);
+    newItem.append("title", title);
 
+    const config = {
+      headers: {
+        Accept: 'application/json',
+        'content-type': 'multipart/form-data'
+      }
+    }
 
     try {
-      if (picture && picture.size < 10000000) {
+      if (title) {
+        console.log(` new item ---> ${JSON.stringify(newItem)}`)
+
+        for (var key of newItem.entries()) {
+          console.log(key[0] + ', ' + key[1]);
+        }
+
         await Axios.post(
-          `http://localhost:3001/vehicles`,
-          newItem
+          `http://localhost:3001/posts`,
+          newItem, config
         ).then(async (response) => {
+          console.log(response)
           return response;
         });
       } else {
         return alert("No image or image size to large");
       }
     } catch (error) {
-      return console.log("Invetory item create new item api error");
+      return console.log(`create new item api error - ${error}`);
     }
   };
 
@@ -43,56 +80,18 @@ function App() {
   return (
     <div className="App">
       <form onSubmit={createNew} method="POST" >
-        <label htmlFor="year">year</label>
+
+        <label htmlFor="setTitle">title</label>
         <input
           className=""
           type="text"
-          name="year"
-          value={year}
+          name="title"
+          value={title}
           onChange={(event) => {
-            setYear(event.target.value)
+            setTitle(event.target.value)
           }}
         ></input>
-        <label htmlFor="make">make</label>
-        <input
-          className=""
-          type="text"
-          name="make"
-          value={make}
-          onChange={(event) => {
-            setMake(event.target.value)
-          }}
-        ></input>
-        <label htmlFor="model">model</label>
-        <input
-          className=""
-          type="text"
-          name="model"
-          value={model}
-          onChange={(event) => {
-            setModel(event.target.value)
-          }}
-        ></input>
-        <label htmlFor="price">price</label>
-        <input
-          className=""
-          type="text"
-          name="price"
-          value={price}
-          onChange={(event) => {
-            setPrice(event.target.value)
-          }}
-        ></input>
-        <label htmlFor="sellerId">sellerId</label>
-        <input
-          className=""
-          type="text"
-          name="sellerId"
-          value={sellerId}
-          onChange={(event) => {
-            setSellerId(event.target.value)
-          }}
-        ></input>
+        <br></br>
         <label htmlFor="itemPicture">Item Picture</label>
         <input
           type="file"
