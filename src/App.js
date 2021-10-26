@@ -7,44 +7,12 @@ function App() {
   const [title, setTitle] = useState("");
 
 
-  // create user
-  // export const createUser = async (userInfo, profilePic) => {
-  //   try {
-  //     const newUser = await new FormData();
-  //     newUser.append("username", userInfo.username.toLowerCase().trim());
-  //     newUser.append("password", userInfo.password.trim());
-  //     newUser.append("firstName", userInfo.firstName.toLowerCase().trim());
-  //     newUser.append("lastName", userInfo.lastName.toLowerCase().trim());
-  //     newUser.append("email", userInfo.email.toLowerCase().trim());
-  //     newUser.append("phone", userInfo.phone);
-  //     newUser.append("userId", Date.now());
-  //     newUser.append("userBio", userInfo.userBio.toLowerCase().trim());
-  //     newUser.append(
-  //       "streetAddress",
-  //       userInfo.streetAddress.toLowerCase().trim()
-  //     );
-  //     newUser.append("city", userInfo.city.toLowerCase().trim());
-  //     newUser.append("state", userInfo.state.toLowerCase().trim());
-  //     newUser.append("zipCode", userInfo.zipCode.toLowerCase().trim());
-  //     newUser.append("profilePic", profilePic);
-  //     let final;
-  //     await Axios.post(`${API}/users`, newUser).then(async (response) => {
-  //       console.log(response);
-  //       final = await response.data;
-  //     });
-  //     await saveUserToSessionStorage(final);
-  //     return final;
-  //   } catch (error) {
-  //     return console.log("UserApi create user error");
-  //   }
-  // };
-
   const createNew = async (e) => {
     e.preventDefault();
 
     const newItem = new FormData();
-    // newItem.append("vehicleImage", picture);
     newItem.append("title", title);
+    newItem.append("profilePicture", picture);
 
     const config = {
       headers: {
@@ -54,13 +22,7 @@ function App() {
     }
 
     try {
-      if (title) {
-        console.log(` new item ---> ${JSON.stringify(newItem)}`)
-
-        for (var key of newItem.entries()) {
-          console.log(key[0] + ', ' + key[1]);
-        }
-
+      if (title && picture) {
         await Axios.post(
           `http://localhost:3001/posts`,
           newItem, config
