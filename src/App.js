@@ -12,7 +12,7 @@ function App() {
 
     const newItem = new FormData();
     newItem.append("title", title);
-    newItem.append("profilePicture", picture);
+    newItem.append("backgroundImage", picture);
 
     const config = {
       headers: {
